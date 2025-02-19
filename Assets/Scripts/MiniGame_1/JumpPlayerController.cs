@@ -8,6 +8,7 @@ public class JumpPlayerController : MonoBehaviour
     private Camera _camera;
     private Vector2 lookDirection = Vector2.zero;
     private Rigidbody2D _rigidbody;
+    private LineRenderer lineRenderer;
 
     private float power = 1f;
     public float chargeSpeed = 5f; // power 증가 속도 (초당)
@@ -21,6 +22,7 @@ public class JumpPlayerController : MonoBehaviour
     private void Awake()
     {
         _camera = Camera.main;
+        lineRenderer = GetComponent<LineRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -28,6 +30,7 @@ public class JumpPlayerController : MonoBehaviour
         if (isDead) return;
 
         MouseDirection();
+        DrawMouseDirection();
         MouseClickPower();
     }
     private void MouseDirection()
@@ -40,15 +43,18 @@ public class JumpPlayerController : MonoBehaviour
 
     private void MouseClickPower()
     {
-        if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있으면
+        if (_rigidbody.velocity == Vector2.zero)
         {
-            power += chargeSpeed * Time.deltaTime; // power 증가
-            power = Mathf.Min(power, maxPower); // 최대값 제한
-        }
-        else if (Input.GetMouseButtonUp(0)) // 마우스 버튼을 떼면 power 초기화
-        {
-            Jump(lookDirection, power);
-            power = 1f;
+            if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있으면
+            {
+                power += chargeSpeed * Time.deltaTime; // power 증가
+                power = Mathf.Min(power, maxPower); // 최대값 제한
+            }
+            else if (Input.GetMouseButtonUp(0)) // 마우스 버튼을 떼면 power 초기화
+            {
+                Jump(lookDirection, power);
+                power = 1f;
+            }
         }
     }
 
@@ -67,4 +73,20 @@ public class JumpPlayerController : MonoBehaviour
         }
     }
 
+    private void DrawMouseDirection()
+    {
+        Vector3 startPoint = Vector2.zero;
+        Vector3 endPoint = lookDirection * 2f;
+
+        if (_rigidbody.velocity == Vector2.zero)
+        {
+            lineRenderer.SetPosition(0, startPoint); // 시작점
+            lineRenderer.SetPosition(1, endPoint);   // 끝점
+        }
+        else
+        {
+            lineRenderer.SetPosition(0, startPoint);
+            lineRenderer.SetPosition(1, startPoint);
+        }
+    }
 }
