@@ -24,10 +24,18 @@ public class MiniGameUIManager_1 : MonoBehaviour
     GameUI gameUI = null;
     ScoreUI scoreUI = null;
 
+    private int score = 0;
+    public int Score { get { return score; } set { score = value; } }
+
+    int bestScore = 0;
+    public int BestScore { get => bestScore; }
+    private const string BestScoreKey = "BestScore";
+
+
     private void Awake()
     {
         instance = this;
-
+        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
         miniGameGameManager_1 = MiniGameGameManager_1.Instance;
         homeUI = GetComponentInChildren<HomeUI>(true);//매개변수 true는 꺼져있는 오브젝트까지 가져온다는뜻
         homeUI?.Init(this);//각 클래스 초기화
@@ -41,6 +49,7 @@ public class MiniGameUIManager_1 : MonoBehaviour
         ChangeState(UIState.Home);
     }
 
+  
     public void ChangeState(UIState state)
     {
         currentState = state;
@@ -55,18 +64,35 @@ public class MiniGameUIManager_1 : MonoBehaviour
         ChangeState(UIState.Game);
     }
 
-    public void OnClickExit()//전처리기 문법을 통해 유니티 에디터가 정의 되어있을때만실행 빌드마다 다른 명령 가능
+    public void OnClickExit()//
     {
+        SceneManager.LoadScene("MainScene");
 
     }
 
     public void UpdateScore()
     {
-        gameUI.SetUI(MiniGameGameManager_1.Instance.Score);
+        gameUI.SetUI(score);
     }
 
     public void SetScoreUI()
     {
-        scoreUI.SetUI(MiniGameGameManager_1.Instance.Score, MiniGameGameManager_1.Instance.BestScore);
+        scoreUI.SetUI(score, bestScore);
+    }
+
+    public void AddScore(int addScore)
+    {
+        score += addScore;
+        UpdateScore();
+    }
+
+    public void UpdateBestScore()
+    {
+        if (score >= bestScore)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt(BestScoreKey, bestScore);
+            PlayerPrefs.Save();
+        }
     }
 }

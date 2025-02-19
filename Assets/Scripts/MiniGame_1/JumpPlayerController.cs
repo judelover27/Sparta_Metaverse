@@ -73,7 +73,10 @@ public class JumpPlayerController : MonoBehaviour
     {
         if (CollisionLayer.value == (CollisionLayer.value | 1 >> collision.gameObject.layer))
         {
+
             isDead = true;
+            MiniGameUIManager_1.Instance.UpdateBestScore();
+            MiniGameUIManager_1.Instance.SetScoreUI();
             MiniGameUIManager_1.Instance.ChangeState(UIState.Score);
         }
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Head
   - Clothes
+  - Background
   layers:
   - Default
   - TransparentFX

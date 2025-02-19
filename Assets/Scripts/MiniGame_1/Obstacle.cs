@@ -40,7 +40,8 @@ public class Obstacle : MonoBehaviour
         JumpPlayerController player = collision.GetComponent<JumpPlayerController>();
         if (player != null)
         {
-            MiniGameGameManager_1.Instance.AddScore(addScore);
+            MiniGameUIManager_1.Instance.AddScore(addScore);
+            
         }
     }
 }
