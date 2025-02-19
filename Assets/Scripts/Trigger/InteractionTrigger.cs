@@ -10,7 +10,7 @@ public class InteractionTrigger : MonoBehaviour
     // TextMeshPro UI 레퍼런스
     [SerializeField] private TextMeshProUGUI interactionText;
     [SerializeField] private Transform player;
-    [SerializeField] private Vector3 textOffset = new Vector3(0, 1.5f, 0);
+    [SerializeField] private Vector3 textOffset = new Vector3(0, .5f, 0);
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class InteractionTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            interactionText.gameObject.SetActive(true);
+            interactionText?.gameObject.SetActive(true);
         }
     }
 
@@ -32,7 +32,7 @@ public class InteractionTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            interactionText.gameObject.SetActive(false);
+            interactionText?.gameObject.SetActive(false);
         }
     }
 
@@ -41,8 +41,8 @@ public class InteractionTrigger : MonoBehaviour
         // 문구가 플레이어 머리 위에 따라다님
         if (interactionText.gameObject.activeSelf)
         {
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(player.position + textOffset);
-            interactionText.transform.position = screenPosition;
+            Vector3 playerPosition = Camera.main.WorldToScreenPoint(player.position + textOffset);
+            interactionText.transform.position = playerPosition;
         }
 
         // E 키를 눌렀을 때 미니게임 씬으로 이동
