@@ -5,7 +5,7 @@ using TMPro;
 public class InteractionTrigger : MonoBehaviour
 {
     private bool isPlayerInRange = false;
-    [SerializeField] private string miniGameSceneName = "MiniGameScene";
+    [SerializeField] private string miniGameSceneName = "MiniGameScene_1";
 
     // TextMeshPro UI 레퍼런스
     [SerializeField] private TextMeshProUGUI interactionText;

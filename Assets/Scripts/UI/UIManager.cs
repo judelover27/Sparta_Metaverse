@@ -18,6 +18,7 @@ public class MiniGameUIManager_1 : MonoBehaviour
     public static MiniGameUIManager_1 Instance
     { get { return instance; } }
 
+    MiniGameGameManager_1 miniGameGameManager_1;
     UIState currentState = UIState.Home;
     HomeUI homeUI = null;
     GameUI gameUI = null;
@@ -27,7 +28,7 @@ public class MiniGameUIManager_1 : MonoBehaviour
     {
         instance = this;
 
-
+        miniGameGameManager_1 = MiniGameGameManager_1.Instance;
         homeUI = GetComponentInChildren<HomeUI>(true);//매개변수 true는 꺼져있는 오브젝트까지 가져온다는뜻
         homeUI?.Init(this);//각 클래스 초기화
 
