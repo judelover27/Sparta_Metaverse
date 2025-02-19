@@ -9,6 +9,8 @@ public class BaseController : MonoBehaviour
     protected Rigidbody2D _rigidbody;
 
     [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private SpriteRenderer headRenderer;
+    [SerializeField] private SpriteRenderer clothesRenderer;
     [SerializeField] private Transform headPivot;
 
     protected Vector2 movementDirection = Vector2.zero;
@@ -18,7 +20,7 @@ public class BaseController : MonoBehaviour
 
     protected bool isLeft = false;
 
-    protected AnimationHandler animationHandler;
+    protected AnimationHandler[] animationHandlers;
 
 
 
@@ -27,7 +29,7 @@ public class BaseController : MonoBehaviour
     protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        animationHandler = GetComponent<AnimationHandler>();
+        animationHandlers = GetComponentsInChildren<AnimationHandler>();
 
     }
 
@@ -59,12 +61,17 @@ public class BaseController : MonoBehaviour
         
 
         _rigidbody.velocity = direction;
-        animationHandler.Move(direction);
+        foreach (var handler in animationHandlers) 
+        handler.Move(direction);
     }
 
     private void Rotate(bool _isLeft)
     {
         characterRenderer.flipX = _isLeft;
+        if(headRenderer != null)
+            headRenderer.flipX = _isLeft;
+        if (clothesRenderer != null)
+            clothesRenderer.flipX = _isLeft;
 
     }
 
