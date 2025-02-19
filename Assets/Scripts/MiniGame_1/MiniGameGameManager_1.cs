@@ -36,4 +36,9 @@ public class MiniGameGameManager_1 : MonoBehaviour
     {
         jumpPlayerController.IsDead = false;
     }
+
+    public void AddScore(int addScore)
+    {
+        score += addScore;
+    }
 }

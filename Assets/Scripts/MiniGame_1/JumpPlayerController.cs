@@ -39,6 +39,11 @@ public class JumpPlayerController : MonoBehaviour
         Vector2 worldPos = _camera.ScreenToWorldPoint(mousePosition);//마우스의 좌표는 해상도 좌표이다 이것을월드좌표로 변환
         lookDirection = (worldPos - (Vector2)transform.position).normalized;//transform.position 의 타입은 Vector3이므로 캐스팅 필요
 
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x)*Mathf.Rad2Deg;//atan2를 이용해 디그리로 변환 주의점 Atant2(y,x)이다.
+
+        angle = Mathf.Clamp(angle, 0, 90);//0,90 도 사이로 제한
+        float rad = angle * Mathf.Deg2Rad;//다시 라디안
+        lookDirection = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;//사인 코사인을 통해 원상복구
     }
 
     private void MouseClickPower()
