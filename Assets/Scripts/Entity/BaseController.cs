@@ -11,8 +11,8 @@ public class BaseController : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer headRenderer;
     [SerializeField] private SpriteRenderer clothesRenderer;
-    private Transform headPivot;
-    private Transform clothesPivot;
+    [SerializeField] protected Transform headPivot;
+    [SerializeField] protected Transform clothesPivot;
 
 
     protected Vector2 movementDirection = Vector2.zero;

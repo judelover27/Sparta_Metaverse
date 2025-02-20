@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : BaseController
 {
+    private GameObject currentHat;
+    private GameObject currentClothes;
 
     protected override void HandleAction()
     {
@@ -21,4 +24,5 @@ public class PlayerController : BaseController
             isLeft = false;
     }
 
+    
 }

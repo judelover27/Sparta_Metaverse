@@ -10,7 +10,9 @@ public class InteractionTrigger : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interactionText;
     [SerializeField] private Transform player;
     [SerializeField] private Vector3 textOffset = new Vector3(0, .5f, 0);
-    
+    [SerializeField] private string targetTag;
+    [SerializeField] private Sprite newSprite;
+
 
     private void Start()
     {
@@ -75,5 +77,35 @@ public class InteractionTrigger : MonoBehaviour
     public void GE()
     {
         GameManager.Instance.GameEnd();
+    }
+
+
+    public void ChangeSprite()
+    {
+        // 특정 태그를 가진 자식 오브젝트 찾기
+        Transform child = FindChildWithTag(player, targetTag);
+
+        if (child != null)
+        {
+            SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = newSprite;
+            else 
+                Debug.Log("spriteRender is null");
+        }
+        else
+            Debug.Log("Tag Object is Null");
+    }
+
+    private Transform FindChildWithTag(Transform parent, string tag)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.CompareTag(tag))
+            {
+                return child;
+            }
+        }
+        return null; // 찾지 못하면 null 반환
     }
 }
