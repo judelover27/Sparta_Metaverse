@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameEnd() 
+    public void GameEnd() //전처리기문 빌드별 종료
     { 
         Debug.Log("game end");
         PlayerPrefs.DeleteKey(ScoreBoardKey); // ScoreBoard 상태 초기화

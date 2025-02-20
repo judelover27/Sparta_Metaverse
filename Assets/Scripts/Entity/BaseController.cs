@@ -11,9 +11,11 @@ public class BaseController : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private SpriteRenderer headRenderer;
     [SerializeField] private SpriteRenderer clothesRenderer;
+    [SerializeField] private SpriteRenderer vehicleRenderer;
     [SerializeField] protected Transform headPivot;
     [SerializeField] protected Transform clothesPivot;
-
+    [SerializeField] protected Transform vehiclePivot;
+    [SerializeField] protected GameObject vehicle;
 
     protected Vector2 movementDirection = Vector2.zero;
     public Vector2 MovementDirection { get { return movementDirection; } }
@@ -22,16 +24,18 @@ public class BaseController : MonoBehaviour
 
     protected bool isLeft = false;
 
+    protected bool isRide = false;
+
     protected AnimationHandler[] animationHandlers;
 
+    protected float playerSpeed = 5f;
 
-
-
+    
 
     protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        animationHandlers = GetComponentsInChildren<AnimationHandler>();
+        animationHandlers = GetComponentsInChildren<AnimationHandler>(true);
         clothesPivot = transform.Find("ClothesPivot");
     }
 
@@ -59,7 +63,7 @@ public class BaseController : MonoBehaviour
 
     private void Movement(Vector2 direction)
     {
-        direction = direction * 5;
+        direction = direction * playerSpeed;
         
 
         _rigidbody.velocity = direction;
@@ -76,11 +80,17 @@ public class BaseController : MonoBehaviour
         if (clothesRenderer != null)
             clothesRenderer.flipX = _isLeft;
 
+        if (vehicleRenderer != null)
+            vehicleRenderer.flipX = _isLeft;
+
         if (clothesPivot != null)
             RotatePivot(clothesPivot, _isLeft);
 
         if (headPivot != null)
             RotatePivot(headPivot, _isLeft);
+
+        if (vehiclePivot != null)
+            RotatePivot(vehiclePivot, _isLeft);
     }
 
     private void RotatePivot(Transform pivot,bool _isLeft)//피벗의 로컬포지션x 반전

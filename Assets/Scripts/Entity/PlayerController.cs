@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class PlayerController : BaseController
 {
     private GameObject currentHat;
     private GameObject currentClothes;
+
 
     protected override void HandleAction()
     {
@@ -24,5 +26,35 @@ public class PlayerController : BaseController
             isLeft = false;
     }
 
-    
+
+    protected void ToggleRideOn()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            vehicle.SetActive(true);
+            isRide = true;
+            playerSpeed = 8f;
+
+            foreach (AnimationHandler handler in animationHandlers)
+                handler.RideOn();
+
+            
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            foreach (AnimationHandler handler in animationHandlers)
+                handler.RideOff();
+
+            vehicle.SetActive(false);
+            isRide = false;
+            playerSpeed = 5f;
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        ToggleRideOn();
+    }
+
 }

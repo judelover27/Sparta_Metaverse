@@ -80,9 +80,9 @@ public class NPCController : BaseController
 
     public void SetRandomChat()
     {
-        int rand = Random.Range(0, 3);
+        int count = 0;
 
-        switch (rand)
+        switch (count%4)
         {
             case 0:
                 chatText = "오늘은 물건이 공짜라네.";
@@ -93,7 +93,12 @@ public class NPCController : BaseController
             case 2:
                 chatText = "아래쪽 사다리로 나가면 게임을 종료할 수 있지.";
                 break;
+            case 3:
+                chatText = "쉬프트를 눌러 양탄자를 탈 수 있다네";
+                break;
         }
+
+        count++;
     }
 
     public void ShowChatBox()
