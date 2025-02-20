@@ -31,7 +31,6 @@ public class MiniGameUIManager_1 : MonoBehaviour
     public int BestScore { get => bestScore; }
     private const string BestScoreKey = "BestScore";
 
-
     private void Awake()
     {
         instance = this;
@@ -66,6 +65,8 @@ public class MiniGameUIManager_1 : MonoBehaviour
 
     public void OnClickExit()//
     {
+        PlayerPrefs.SetInt("ShowScoreBoard", 1);
+        PlayerPrefs.Save();
         SceneManager.LoadScene("MainScene");
 
     }

@@ -6,19 +6,18 @@ public class InteractionTrigger : MonoBehaviour
 {
     private bool isPlayerInRange = false;
     [SerializeField] private string miniGameSceneName = "MiniGameScene_1";
-
-    // TextMeshPro UI 레퍼런스
+    [SerializeField] private string methodName;
     [SerializeField] private TextMeshProUGUI interactionText;
     [SerializeField] private Transform player;
     [SerializeField] private Vector3 textOffset = new Vector3(0, .5f, 0);
+    
 
     private void Start()
     {
-        // 문구를 기본적으로 비활성화
         interactionText.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)//상호작용 지역에 들어가면 메세지 on
     {
         if (collision.CompareTag("Player"))
         {
@@ -36,20 +35,45 @@ public class InteractionTrigger : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void TrackingText()//메세지 on 되면 플레이어 포지션 + offset으로 위치 이동 업데이트
     {
-        // 문구가 플레이어 머리 위에 따라다님
         if (interactionText.gameObject.activeSelf)
         {
             Vector3 playerPosition = Camera.main.WorldToScreenPoint(player.position + textOffset);
             interactionText.transform.position = playerPosition;
         }
+    }
 
-        // E 키를 눌렀을 때 미니게임 씬으로 이동
+    private void Interaction(string methodName)//E키 누르면 상호작용 클래스 재활용
+    {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("미니게임으로 이동");
-            SceneManager.LoadScene(miniGameSceneName);
+            Invoke(methodName,0);
         }
+    }
+
+    private void LoadMiniGame()
+    {
+        Debug.Log("미니게임으로 이동");
+        SceneManager.LoadScene(miniGameSceneName);
+    }
+
+    private void Update()
+    {
+        TrackingText();
+
+        Interaction(methodName);
+        
+    }
+
+        
+    public void ShowSB()
+    {
+        GameManager.Instance.scoreBoardManager.ShowScoreBoard();
+    }
+
+    public void GE()
+    {
+        GameManager.Instance.GameEnd();
     }
 }
