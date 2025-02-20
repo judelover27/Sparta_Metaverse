@@ -29,10 +29,9 @@ public class PlayerController : BaseController
 
     protected void ToggleRideOn()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift)&& isRide)
         {
             vehicle.SetActive(true);
-            isRide = true;
             playerSpeed = 8f;
 
             foreach (AnimationHandler handler in animationHandlers)
@@ -46,7 +45,6 @@ public class PlayerController : BaseController
                 handler.RideOff();
 
             vehicle.SetActive(false);
-            isRide = false;
             playerSpeed = 5f;
         }
     }

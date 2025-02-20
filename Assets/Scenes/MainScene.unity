@@ -3576,12 +3576,15 @@ MonoBehaviour:
   characterRenderer: {fileID: 722268241}
   headRenderer: {fileID: 0}
   clothesRenderer: {fileID: 0}
+  vehicleRenderer: {fileID: 0}
   headPivot: {fileID: 0}
   clothesPivot: {fileID: 0}
+  vehiclePivot: {fileID: 0}
   vehicle: {fileID: 0}
   chatName: {fileID: 1317684947}
   chat: {fileID: 1206502330}
   chatBox: {fileID: 2069132233}
+  playerController: {fileID: 709777855}
 --- !u!114 &580218853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3968,8 +3971,10 @@ MonoBehaviour:
   characterRenderer: {fileID: 373653086}
   headRenderer: {fileID: 1732456957}
   clothesRenderer: {fileID: 1620162032}
+  vehicleRenderer: {fileID: 443521743}
   headPivot: {fileID: 765585269}
   clothesPivot: {fileID: 1435372156}
+  vehiclePivot: {fileID: 315930509}
   vehicle: {fileID: 315930508}
 --- !u!1 &722268240
 GameObject:

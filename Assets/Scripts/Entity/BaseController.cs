@@ -25,6 +25,8 @@ public class BaseController : MonoBehaviour
     protected bool isLeft = false;
 
     protected bool isRide = false;
+    public bool IsRide { get { return isRide; } set { isRide = value; } }
+
 
     protected AnimationHandler[] animationHandlers;
 

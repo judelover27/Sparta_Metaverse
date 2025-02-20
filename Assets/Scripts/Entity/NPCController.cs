@@ -8,12 +8,14 @@ public class NPCController : BaseController
     [SerializeField] public TextMeshProUGUI chatName;
     [SerializeField] public TextMeshProUGUI chat;
     [SerializeField] public GameObject chatBox;
+    public PlayerController playerController;
 
     private bool isPlayerInRange = false;
     private bool isChatBoxActive = false;
     private float moveSpeed = 2f;
     float moveDirection;
     private string chatText;
+    private int count = 0;
 
     protected override void SetIsLeft()
     {
@@ -80,7 +82,7 @@ public class NPCController : BaseController
 
     public void SetRandomChat()
     {
-        int count = 0;
+        
 
         switch (count%4)
         {
@@ -95,6 +97,8 @@ public class NPCController : BaseController
                 break;
             case 3:
                 chatText = "쉬프트를 눌러 양탄자를 탈 수 있다네";
+                if(playerController != null) 
+                playerController.IsRide = true;
                 break;
         }
 
