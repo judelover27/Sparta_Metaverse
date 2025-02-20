@@ -82,8 +82,8 @@ public class InteractionTrigger : MonoBehaviour
 
     public void ChangeSprite()
     {
-        // 특정 태그를 가진 자식 오브젝트 찾기
-        Transform child = FindChildWithTag(player, targetTag);
+        // 특정 태그를 가진 자식 오브젝트 찾기 실패 findwithtag는 씬 전체 탐색하므로 모자와 옷은 씬내 단 하나만 있어야됨
+        GameObject child = GameObject.FindWithTag(targetTag);
 
         if (child != null)
         {
