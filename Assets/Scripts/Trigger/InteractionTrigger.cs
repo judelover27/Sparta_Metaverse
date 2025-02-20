@@ -13,6 +13,12 @@ public class InteractionTrigger : MonoBehaviour
     [SerializeField] private string targetTag;
     [SerializeField] private Sprite newSprite;
 
+    private NPCController npcController;
+
+    private void Awake()
+    {
+        npcController = GetComponent<NPCController>();
+    }
 
     private void Start()
     {
@@ -97,15 +103,6 @@ public class InteractionTrigger : MonoBehaviour
             Debug.Log("Tag Object is Null");
     }
 
-    private Transform FindChildWithTag(Transform parent, string tag)
-    {
-        foreach (Transform child in parent)
-        {
-            if (child.CompareTag(tag))
-            {
-                return child;
-            }
-        }
-        return null; // 찾지 못하면 null 반환
-    }
+
+
 }
