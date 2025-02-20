@@ -43,7 +43,8 @@ public class PlayerController : BaseController
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             foreach (AnimationHandler handler in animationHandlers)
-                handler.RideOff();
+                if (handler != null)
+                    handler.RideOff();
 
             vehicle.SetActive(false);
             playerSpeed = 5f;
