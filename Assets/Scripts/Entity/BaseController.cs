@@ -70,6 +70,7 @@ public class BaseController : MonoBehaviour
 
         _rigidbody.velocity = direction;
         foreach (var handler in animationHandlers) 
+            if (handler != null)
         handler.Move(direction);
     }
 

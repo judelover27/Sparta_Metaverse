@@ -35,6 +35,7 @@ public class PlayerController : BaseController
             playerSpeed = 8f;
 
             foreach (AnimationHandler handler in animationHandlers)
+                if (handler != null)
                 handler.RideOn();
 
             
